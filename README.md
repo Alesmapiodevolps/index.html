@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicórnios Interativos 3D</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #1d1f27 0%, #0f0f12 100%);
+      cursor: pointer;
+      height: 100vh;
+      position: relative; /* Corrigido: necessário para posicionamento absoluto dos unicórnios */
+    }
+    .unicorn {
+      position: absolute;
+      font-size: 4rem;
+      transition: transform 5s linear, opacity 2s;
+      pointer-events: none;
+      animation: float 3s ease-in-out infinite;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+      filter: drop-shadow(0 0 10px #ff00ff);
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  <script>
+    const unicornIcon = '🦄';
+
+    document.body.addEventListener('click', (e) => {
+      const unicorn = document.createElement('div');
+      unicorn.className = 'unicorn';
+      unicorn.innerHTML = unicornIcon;
+      document.body.appendChild(unicorn);
+
+      unicorn.style.left = `${e.clientX - 30}px`;
+      unicorn.style.top = `${e.clientY - 30}px`;
+
+      setTimeout(() => {
+        unicorn.style.transform = `translateY(-150vh) rotate(${Math.random() * 720 - 360}deg)`;
+        unicorn.style.opacity = '0';
+      }, 50);
+
+      setTimeout(() => {
+        unicorn.remove();
+      }, 6000);
+    });
+  </script>
+</body>
+</html>
